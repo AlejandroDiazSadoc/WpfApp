@@ -1,0 +1,110 @@
+﻿<Window x:Class="WpfApp1.LoggedIn"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d" Height="600" Width="970" ResizeMode="NoResize" WindowStyle="None" Background="White" Cursor="Hand">
+    
+    <Window.Resources>
+        <Storyboard x:Key="MenuOpen">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
+                <EasingDoubleKeyFrame KeyTime="0" Value="50"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="150"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="ContentGrid">
+                <EasingDoubleKeyFrame KeyTime="0" Value="920"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="820"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="MenuClose">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
+                <EasingDoubleKeyFrame KeyTime="0" Value="150"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="50"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="ContentGrid">
+                <EasingDoubleKeyFrame KeyTime="0" Value="820"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="920"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Window.Resources>
+
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtonOpenMenu">
+            <BeginStoryboard Storyboard="{StaticResource MenuOpen}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtonCloseMenu">
+            <BeginStoryboard Storyboard="{StaticResource MenuClose}"/>
+        </EventTrigger>
+    </Window.Triggers>
+    
+    <Grid>
+        <Grid  Height="60" VerticalAlignment="Top" Background="#FF02DC02">
+            <StackPanel VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Right">
+                <TextBlock x:Name="UserName" Text="Ala" Foreground="White" VerticalAlignment="Center" FontSize="15"></TextBlock>
+                <materialDesign:PopupBox HorizontalAlignment="Right" Margin="10" PlacementMode="BottomAndAlignRightEdges" Foreground="White" StaysOpen="False">
+                    <StackPanel Width="100">
+                        <Button x:Name="LogoutButton" Content="Logout" Click="LogoutButton_Click"/>
+                        <Button x:Name="ExitApp"  Content="Exit"  Click="ExitApp_Click"/>
+                    </StackPanel>
+                </materialDesign:PopupBox>
+            </StackPanel>
+        </Grid>
+        <Grid x:Name="GridMenu" Width="50" HorizontalAlignment="Left" Background="DarkGreen">
+            <StackPanel>
+                <Grid Height="120" Background="White">
+                    <Button x:Name="ButtonCloseMenu" Width="60" Height="60" HorizontalAlignment="Right" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" Visibility="Collapsed" Click="ButtonCloseMenu_Click">
+                        <materialDesign:PackIcon Kind="ArrowLeft" Foreground="DarkGreen" Height="35" Width="35"/>
+                    </Button>
+                    <Button x:Name="ButtonOpenMenu" Width="60" Height="60" HorizontalAlignment="Right" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" Click="ButtonOpenMenu_Click">
+                        <materialDesign:PackIcon Kind="Menu" Foreground="DarkGreen" Height="35" Width="35"/>
+                    </Button>
+                </Grid>
+                <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" Foreground="#FF02DC02">
+                    <ListViewItem Height="60">
+                        <StackPanel x:Name="HomeContent" Orientation="Horizontal" MouseLeftButtonDown="HomeContent_MouseDown">
+                            <materialDesign:PackIcon Kind="ViewDashboard" VerticalAlignment="Center" Width="25" Height="25"/>
+                            <TextBlock Text="Home" Margin="20 10" VerticalAlignment="Center" Foreground="White"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem  Height="60" >
+                        <StackPanel x:Name="SecondContent" Orientation="Horizontal" MouseLeftButtonDown="SecondContent_MouseDown">
+                            <materialDesign:PackIcon Kind="ViewDashboard" VerticalAlignment="Center" Width="25" Height="25"/>
+                            <TextBlock Text="Home" Margin="20 10" VerticalAlignment="Center" Foreground="White"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Height="60">
+                        <StackPanel x:Name="GithubContent" Orientation="Horizontal" MouseLeftButtonDown="GithubContent_MouseDown">
+                            <materialDesign:PackIcon Kind="Github" VerticalAlignment="Center" Width="25" Height="25"/>
+                            <TextBlock Text="Github" Margin="20 10" VerticalAlignment="Center" Foreground="White"/>
+                        </StackPanel>
+                    </ListViewItem>
+                </ListView>
+            </StackPanel>
+        </Grid>
+        <Grid x:Name="ContentGrid" Height="540" Width="920" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            <materialDesign:DialogHost IsOpen="False" x:Name="LoggedOut" Grid.ColumnSpan="2" Margin="0,0,0.4,-0.4" >
+                <materialDesign:DialogHost.DialogContent>
+                    <StackPanel Width="60" Height="20">
+                        <TextBlock Text="Goodbye!" Foreground="DarkCyan"></TextBlock>
+                    </StackPanel>
+                </materialDesign:DialogHost.DialogContent>
+            </materialDesign:DialogHost>
+
+
+            <StackPanel x:Name="HomePanel" Height="540">
+                <TextBlock Text="Welcome!" Margin="0,150,0,0" FontSize="80" HorizontalAlignment="Center" Foreground="#FF02DC02"/>
+            </StackPanel>
+            
+            <StackPanel x:Name="SecondPanel" Height="540" Visibility="Hidden">
+                <TextBlock Text="Second!" Margin="0,150,0,0" FontSize="80" HorizontalAlignment="Center" Foreground="#FF02DC02"/>
+            </StackPanel>
+            
+            
+            <StackPanel x:Name="GithubPanel" Visibility="Hidden" Height="540">
+                <WebBrowser x:Name="BrowserPage" Source="https://github.com/AlejandroDiazSadoc" Height="540"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
