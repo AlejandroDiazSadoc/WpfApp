@@ -39,10 +39,10 @@
         </EventTrigger>
     </Window.Triggers>
     
-    <Grid>
-        <Grid  Height="60" VerticalAlignment="Top" Background="#FF02DC02">
+    <Grid >
+        <Grid  Height="60" VerticalAlignment="Top" Background="#FF02DC02" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
             <StackPanel VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Right">
-                <TextBlock x:Name="UserName" Text="Ala" Foreground="White" VerticalAlignment="Center" FontSize="15"></TextBlock>
+                <TextBlock x:Name="UserName"  Foreground="White" VerticalAlignment="Center" FontSize="15"></TextBlock>
                 <materialDesign:PopupBox HorizontalAlignment="Right" Margin="10" PlacementMode="BottomAndAlignRightEdges" Foreground="White" StaysOpen="False">
                     <StackPanel Width="100">
                         <Button x:Name="LogoutButton" Content="Logout" Click="LogoutButton_Click"/>
@@ -64,14 +64,20 @@
                 <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" Foreground="#FF02DC02">
                     <ListViewItem Height="60">
                         <StackPanel x:Name="HomeContent" Orientation="Horizontal" MouseLeftButtonDown="HomeContent_MouseDown">
-                            <materialDesign:PackIcon Kind="ViewDashboard" VerticalAlignment="Center" Width="25" Height="25"/>
+                            <materialDesign:PackIcon Kind="Home" VerticalAlignment="Center" Width="25" Height="25"/>
                             <TextBlock Text="Home" Margin="20 10" VerticalAlignment="Center" Foreground="White"/>
                         </StackPanel>
                     </ListViewItem>
+                    <ListViewItem x:Name="UserContentMenu" Height="60" Visibility="Collapsed">
+                        <StackPanel x:Name="UserContent" Orientation="Horizontal" MouseLeftButtonDown="UserContent_MouseLeftButtonDown">
+                            <materialDesign:PackIcon Kind="User" VerticalAlignment="Center" Width="25" Height="25"/>
+                            <TextBlock Text="Users" Margin="20 10" VerticalAlignment="Center" Foreground="White"/>
+                        </StackPanel>
+                    </ListViewItem>
                     <ListViewItem  Height="60" >
-                        <StackPanel x:Name="SecondContent" Orientation="Horizontal" MouseLeftButtonDown="SecondContent_MouseDown">
-                            <materialDesign:PackIcon Kind="ViewDashboard" VerticalAlignment="Center" Width="25" Height="25"/>
-                            <TextBlock Text="Home" Margin="20 10" VerticalAlignment="Center" Foreground="White"/>
+                        <StackPanel x:Name="BooksContent" Orientation="Horizontal" MouseLeftButtonDown="BooksContent_MouseLeftButtonDown">
+                            <materialDesign:PackIcon Kind="BookAccount" VerticalAlignment="Center" Width="25" Height="25"/>
+                            <TextBlock Text="Books" Margin="20 10" VerticalAlignment="Center" Foreground="White"/>
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem Height="60">
@@ -83,11 +89,49 @@
                 </ListView>
             </StackPanel>
         </Grid>
+        
         <Grid x:Name="ContentGrid" Height="540" Width="920" HorizontalAlignment="Right" VerticalAlignment="Bottom">
             <materialDesign:DialogHost IsOpen="False" x:Name="LoggedOut" Grid.ColumnSpan="2" Margin="0,0,0.4,-0.4" >
                 <materialDesign:DialogHost.DialogContent>
-                    <StackPanel Width="60" Height="20">
-                        <TextBlock Text="Goodbye!" Foreground="DarkCyan"></TextBlock>
+                    <StackPanel Width="400" Height="100">
+                        <TextBlock Text="Goodbye!" FontSize="45"  HorizontalAlignment="Center" Foreground="DarkCyan"/>
+                    </StackPanel>
+                </materialDesign:DialogHost.DialogContent>
+            </materialDesign:DialogHost>
+
+            <materialDesign:DialogHost IsOpen="False" x:Name="EditBookContent" Grid.ColumnSpan="2" Margin="0,0,0,0" >
+                <materialDesign:DialogHost.DialogContent>
+                    <StackPanel Orientation="Vertical" Margin="20,20,20.4,19.6" Grid.ColumnSpan="2">
+                        <StackPanel Orientation="Horizontal" Height="26" Margin="0,0,0,10">
+                            <Label Content="Title" />
+                            <TextBox x:Name="EditTitle_txt" Width="360" Margin="0,0,0,-0.4" materialDesign:HintAssist.Hint="Title.." />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Height="26" Margin="0,0,0,10">
+                            <Label Content="Publisher"/>
+                            <TextBox x:Name="EditPublisher_txt" Width="360"  materialDesign:HintAssist.Hint="Publisher.." />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Height="45" Margin="0,0,0,10">
+                            <Label Content="isRented" VerticalAlignment="Center"/>
+                            <ComboBox  x:Name="RentedPicker" Margin="10" Width="90" Height="35" Foreground="Black">
+                                <ComboBoxItem>true</ComboBoxItem>
+                                <ComboBoxItem>false</ComboBoxItem>
+                            </ComboBox>
+                        </StackPanel>
+                        
+                        <StackPanel Orientation="Horizontal" Height="26" Margin="0,0,0,10">
+                            <Label Content="User Rented"/>
+                            <TextBox x:Name="EditUserRented_txt" Width="360"  materialDesign:HintAssist.Hint="User rented.." />
+                        </StackPanel>
+                        
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button x:Name="CancelEdit" Content="Cancel" Width="100" Click="CancelEdit_Click" Margin="10"/>
+                            <Button x:Name="SaveEdit" Content="Save" Width="100" Click="SaveEdit_Click" Margin="10"/>
+                        </StackPanel>
+
+
+                        <materialDesign:Card x:Name="AddBook_Failed" Visibility="Collapsed" Padding="5" Margin="0,0,0,5" Width="250" materialDesign:ShadowAssist.ShadowDepth="Depth4">
+                            <TextBlock x:Name="AddBook_Failed_Text" Foreground="Red"/>
+                        </materialDesign:Card>
                     </StackPanel>
                 </materialDesign:DialogHost.DialogContent>
             </materialDesign:DialogHost>
@@ -96,12 +140,82 @@
             <StackPanel x:Name="HomePanel" Height="540">
                 <TextBlock Text="Welcome!" Margin="0,150,0,0" FontSize="80" HorizontalAlignment="Center" Foreground="#FF02DC02"/>
             </StackPanel>
-            
-            <StackPanel x:Name="SecondPanel" Height="540" Visibility="Hidden">
-                <TextBlock Text="Second!" Margin="0,150,0,0" FontSize="80" HorizontalAlignment="Center" Foreground="#FF02DC02"/>
+
+            <StackPanel x:Name="BooksPanel" Height="540" Visibility="Collapsed" >
+                
+                    <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                        <ListView  Margin="10" x:Name="lvBooks" >
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Title" Width="100" DisplayMemberBinding="{Binding title}" />
+                                <GridViewColumn Header="Publisher" Width="120" DisplayMemberBinding="{Binding publisher}" />
+                                <GridViewColumn Header="isRented" Width="100"  DisplayMemberBinding="{Binding isRented}" />
+                                <GridViewColumn Header="User Rented" Width="150" DisplayMemberBinding="{Binding userRented}" />
+                                <GridViewColumn Header="Actions" Width="250">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate x:Name="DataTemplatePanel">
+                                            <StackPanel  x:Name="ActionBookButtons" Orientation="Horizontal" Loaded="ActionBookButtons_Loaded">
+                                                <Button Content="Rent" x:Name="RentBook_Button" Margin="2" Click="RentBook_Button_Click"/>
+                                                <Button x:Name="DeleteBook_Button" Visibility="Collapsed" Content="Delete" Margin="2" Click="DeleteBook_Button_Click" />
+                                                <Button x:Name="EditBook_Button" Visibility="Collapsed" Content="Edit" Margin="2" Click="EditBook_Button_Click" />
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn DisplayMemberBinding="{x:Null}">
+                                    <StackPanel x:Name="PanelAddBook" Orientation="Horizontal" Loaded="PanelAddBook_Loaded">
+                                        <Button x:Name="AddBook_Button" Content="Add Book" Width="100" Click="AddBook_Button_Click" />
+                                        
+                                    </StackPanel>
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate />
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+
+                            </GridView>
+
+                        </ListView.View>
+                    </ListView>
+                        
+                    </Grid>
+                
             </StackPanel>
-            
-            
+
+            <StackPanel x:Name="UserPanel" Height="540" Visibility="Collapsed" >
+
+                <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                    <ListView  Margin="10" x:Name="lvUsers" >
+                        <ListView.View >
+                            <GridView>
+                                <GridViewColumn Header="Username" Width="150" DisplayMemberBinding="{Binding username}" />
+                                <GridViewColumn Header="Password" Width="150" DisplayMemberBinding="{Binding password}" />
+                                <GridViewColumn Header="Role" Width="100"  DisplayMemberBinding="{Binding role}" />
+                                <GridViewColumn Header="Actions" Width="220">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate >
+                                            <StackPanel  Orientation="Horizontal">
+                                                <Button x:Name="DeleteUser_Button" Margin="2" Content="Delete" Width="80" Click="DeleteUser_Button_Click"/>
+                                                <Button x:Name="ChangeUser_Button" Margin="2" Content="Change Role" Width="120" Click="ChangeUser_Button_Click"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn DisplayMemberBinding="{x:Null}">
+                                    <Button x:Name="AddUser_Button" Content="Add User" Width="90" Click="AddUser_Button_Click" />
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate />
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+
+                        </ListView.View>
+                    </ListView>
+
+                </Grid>
+
+            </StackPanel>
+
+
             <StackPanel x:Name="GithubPanel" Visibility="Hidden" Height="540">
                 <WebBrowser x:Name="BrowserPage" Source="https://github.com/AlejandroDiazSadoc" Height="540"/>
             </StackPanel>

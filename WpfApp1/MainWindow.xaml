@@ -39,9 +39,13 @@
                     <materialDesign:PackIcon Kind="Key" Height="26" Margin="0,0,2,0" Width="29" Foreground="{Binding ElementName=Password_txt, Path=BorderBrush}" VerticalAlignment="Bottom"/>
                     <PasswordBox x:Name="Password_txt" Width="360"  materialDesign:HintAssist.Hint="Password" />
                 </StackPanel>
-                <Button Content="Login" Width="100" Click="Login" Margin="20"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button Content="Sign Up" Width="100" Click="Register" Margin="10"/>
+                    <Button Content="Login" Width="100" Click="Login" Margin="10"/>
+                </StackPanel>
+                
 
-                <materialDesign:Card x:Name="Login_Failed" Visibility="Collapsed" Padding="5" Margin="0,15,0,5" Width="150" materialDesign:ShadowAssist.ShadowDepth="Depth4">
+                <materialDesign:Card x:Name="Login_Failed" Visibility="Collapsed" Padding="5" Margin="0,0,0,5" Width="150" materialDesign:ShadowAssist.ShadowDepth="Depth4">
                     <TextBlock Text="Incorrect User or Password" Foreground="Red"/>
                 </materialDesign:Card>
             </StackPanel>

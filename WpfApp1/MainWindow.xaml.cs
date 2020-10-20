@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +22,15 @@ namespace WpfApp1
     /// </summary>
     public partial class MainWindow : Window
     {
+        
+        
+
         public MainWindow()
         {
             InitializeComponent();
+            
+            
+            
         }
 
         private void Button_Exit(object sender, RoutedEventArgs e)
@@ -40,29 +48,46 @@ namespace WpfApp1
             DragMove();
         }
 
-        private void Login(object sender, RoutedEventArgs e)
+        private void Register(object sender, RoutedEventArgs e)
         {
-            if (Password_txt.Password.Equals("root") && User_txt.Text.Equals("root"))
-                ShowMessage(true);
-            else
-                ShowMessage(false);
+            RegisterWindow register = new RegisterWindow();
+            register.Show();
         }
 
-        private async void ShowMessage(bool isLogged)
+        private void Login(object sender, RoutedEventArgs e)
+        {
+            try
+            { 
+
+                User user = DatabaseManagement.instance.Users.Find(x => x.username.Equals(User_txt.Text)).Single();
+                
+                if (user.password.Equals(Password_txt.Password))
+                    ShowMessage(true,user);
+                else
+                    ShowMessage(false);
+
+            }
+            catch(Exception ex)
+            {
+                ShowMessage(false);
+            }
+        }
+
+        private async void ShowMessage(bool isLogged,User user=null)
         {
             if (isLogged)
             {
                 Logged.IsOpen = true;
                 await Task.Delay(1000);
                 Logged.IsOpen = false;
-                LoggedIn logged = new LoggedIn();
+                LoggedIn logged = new LoggedIn(user);
                 logged.Show();
                 this.Close();
             }
             else
             {
                 Login_Failed.Visibility = Visibility.Visible;
-                await Task.Delay(1000);
+                await Task.Delay(2000);
                 Login_Failed.Visibility = Visibility.Collapsed;
             }
 

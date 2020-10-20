@@ -13,5 +13,13 @@ namespace WpfApp1
     /// </summary>
     public partial class App : Application
     {
+        private void Application_Startup(object sender, StartupEventArgs e)
+        {
+            new DatabaseManagement();
+
+            MainWindow main = new MainWindow();
+            this.MainWindow = main;
+            main.Show();
+        }
     }
 }
