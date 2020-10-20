@@ -44,3 +44,4 @@ C:\Users\Alejandro\Desktop\Prueba WPF\WpfApp1\WpfApp1\obj\Release\WpfApp1.csproj
 C:\Users\Alejandro\Desktop\Prueba WPF\WpfApp1\WpfApp1\obj\Release\WpfApp1.csproj.CopyComplete
 C:\Users\Alejandro\Desktop\Prueba WPF\WpfApp1\WpfApp1\obj\Release\WpfApp1.exe
 C:\Users\Alejandro\Desktop\Prueba WPF\WpfApp1\WpfApp1\obj\Release\WpfApp1.pdb
+C:\Users\Alejandro\Desktop\Prueba WPF\WpfApp1\WpfApp1\obj\Release\WpfApp1.csprojAssemblyReference.cache

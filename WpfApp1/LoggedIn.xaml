@@ -40,57 +40,78 @@
     </Window.Triggers>
     
     <Grid >
+        <!-- Allow to move the window and to show the user connected and its options-->
         <Grid  Height="60" VerticalAlignment="Top" Background="#FF02DC02" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+            
             <StackPanel VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Right">
                 <TextBlock x:Name="UserName"  Foreground="White" VerticalAlignment="Center" FontSize="15"></TextBlock>
+                
                 <materialDesign:PopupBox HorizontalAlignment="Right" Margin="10" PlacementMode="BottomAndAlignRightEdges" Foreground="White" StaysOpen="False">
                     <StackPanel Width="100">
+                        <Button x:Name="UserProfile" Content="Profile" Click="UserProfile_Click"/>
                         <Button x:Name="LogoutButton" Content="Logout" Click="LogoutButton_Click"/>
                         <Button x:Name="ExitApp"  Content="Exit"  Click="ExitApp_Click"/>
                     </StackPanel>
                 </materialDesign:PopupBox>
+                
             </StackPanel>
+            
         </Grid>
+        
+        <!-- Menu navigation drawer -->
         <Grid x:Name="GridMenu" Width="50" HorizontalAlignment="Left" Background="DarkGreen">
+            
             <StackPanel>
+                
                 <Grid Height="120" Background="White">
+                    
                     <Button x:Name="ButtonCloseMenu" Width="60" Height="60" HorizontalAlignment="Right" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" Visibility="Collapsed" Click="ButtonCloseMenu_Click">
                         <materialDesign:PackIcon Kind="ArrowLeft" Foreground="DarkGreen" Height="35" Width="35"/>
                     </Button>
+                    
                     <Button x:Name="ButtonOpenMenu" Width="60" Height="60" HorizontalAlignment="Right" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" Click="ButtonOpenMenu_Click">
                         <materialDesign:PackIcon Kind="Menu" Foreground="DarkGreen" Height="35" Width="35"/>
                     </Button>
+                    
                 </Grid>
                 <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" Foreground="#FF02DC02">
+                    
                     <ListViewItem Height="60">
                         <StackPanel x:Name="HomeContent" Orientation="Horizontal" MouseLeftButtonDown="HomeContent_MouseDown">
                             <materialDesign:PackIcon Kind="Home" VerticalAlignment="Center" Width="25" Height="25"/>
                             <TextBlock Text="Home" Margin="20 10" VerticalAlignment="Center" Foreground="White"/>
                         </StackPanel>
                     </ListViewItem>
+                    
                     <ListViewItem x:Name="UserContentMenu" Height="60" Visibility="Collapsed">
                         <StackPanel x:Name="UserContent" Orientation="Horizontal" MouseLeftButtonDown="UserContent_MouseLeftButtonDown">
                             <materialDesign:PackIcon Kind="User" VerticalAlignment="Center" Width="25" Height="25"/>
                             <TextBlock Text="Users" Margin="20 10" VerticalAlignment="Center" Foreground="White"/>
                         </StackPanel>
                     </ListViewItem>
+                    
                     <ListViewItem  Height="60" >
                         <StackPanel x:Name="BooksContent" Orientation="Horizontal" MouseLeftButtonDown="BooksContent_MouseLeftButtonDown">
                             <materialDesign:PackIcon Kind="BookAccount" VerticalAlignment="Center" Width="25" Height="25"/>
                             <TextBlock Text="Books" Margin="20 10" VerticalAlignment="Center" Foreground="White"/>
                         </StackPanel>
                     </ListViewItem>
+                    
                     <ListViewItem Height="60">
                         <StackPanel x:Name="GithubContent" Orientation="Horizontal" MouseLeftButtonDown="GithubContent_MouseDown">
                             <materialDesign:PackIcon Kind="Github" VerticalAlignment="Center" Width="25" Height="25"/>
                             <TextBlock Text="Github" Margin="20 10" VerticalAlignment="Center" Foreground="White"/>
                         </StackPanel>
                     </ListViewItem>
+                    
                 </ListView>
+            
             </StackPanel>
         </Grid>
         
+        <!-- Content grid to show depending of the menu item selected -->
         <Grid x:Name="ContentGrid" Height="540" Width="920" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            
             <materialDesign:DialogHost IsOpen="False" x:Name="LoggedOut" Grid.ColumnSpan="2" Margin="0,0,0.4,-0.4" >
                 <materialDesign:DialogHost.DialogContent>
                     <StackPanel Width="400" Height="100">
@@ -99,6 +120,7 @@
                 </materialDesign:DialogHost.DialogContent>
             </materialDesign:DialogHost>
 
+            
             <materialDesign:DialogHost IsOpen="False" x:Name="EditBookContent" Grid.ColumnSpan="2" Margin="0,0,0,0" >
                 <materialDesign:DialogHost.DialogContent>
                     <StackPanel Orientation="Vertical" Margin="20,20,20.4,19.6" Grid.ColumnSpan="2">
@@ -141,6 +163,7 @@
                 <TextBlock Text="Welcome!" Margin="0,150,0,0" FontSize="80" HorizontalAlignment="Center" Foreground="#FF02DC02"/>
             </StackPanel>
 
+            
             <StackPanel x:Name="BooksPanel" Height="540" Visibility="Collapsed" >
                 
                     <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
@@ -164,8 +187,7 @@
                                 </GridViewColumn>
                                 <GridViewColumn DisplayMemberBinding="{x:Null}">
                                     <StackPanel x:Name="PanelAddBook" Orientation="Horizontal" Loaded="PanelAddBook_Loaded">
-                                        <Button x:Name="AddBook_Button" Content="Add Book" Width="100" Click="AddBook_Button_Click" />
-                                        
+                                        <Button x:Name="AddBook_Button" Visibility="Hidden" Content="Add Book" Width="100" Click="AddBook_Button_Click" />
                                     </StackPanel>
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate />
@@ -181,6 +203,7 @@
                 
             </StackPanel>
 
+            
             <StackPanel x:Name="UserPanel" Height="540" Visibility="Collapsed" >
 
                 <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
@@ -219,6 +242,41 @@
             <StackPanel x:Name="GithubPanel" Visibility="Hidden" Height="540">
                 <WebBrowser x:Name="BrowserPage" Source="https://github.com/AlejandroDiazSadoc" Height="540"/>
             </StackPanel>
+
+            
+            <StackPanel x:Name="ProfilePanel" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
+
+                <StackPanel Orientation="Horizontal" Height="26" Margin="0,0,0,10">
+                    <materialDesign:PackIcon Kind="Account" Height="26" Margin="0,0,2,0" Width="29" Foreground="{Binding ElementName=UserNameProfile_txt, Path=BorderBrush}" VerticalAlignment="Bottom"/>
+                    <TextBox x:Name="UserNameProfile_txt" Width="360" Margin="0,0,0,-0.4" materialDesign:HintAssist.Hint="User" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Height="26" Margin="0,0,0,10">
+                    <materialDesign:PackIcon Kind="Key" Height="26" Margin="0,0,2,0" Width="29" Foreground="{Binding ElementName=PasswordProfile_txt, Path=BorderBrush}" VerticalAlignment="Bottom"/>
+                    <TextBox x:Name="PasswordProfile_txt" Width="360"  materialDesign:HintAssist.Hint="Password" />
+                </StackPanel>
+
+
+                <StackPanel Orientation="Horizontal" Height="45" Margin="0,0,0,10">
+                    <Label Content="Role" VerticalAlignment="Center" Margin="0,0,15,0" FontSize="15"/>
+                    <TextBlock x:Name="RoleUserProfile" FontSize="15" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button Content="Save Changes"  Click="SaveUser" Margin="10"/>
+                </StackPanel>
+
+
+                <materialDesign:Card x:Name="SaveUser_Failed" Visibility="Collapsed" Padding="5" Margin="0,0,0,5" Width="250" materialDesign:ShadowAssist.ShadowDepth="Depth4">
+                    <TextBlock x:Name="SaveUser_Failed_Text" Foreground="Red"/>
+                </materialDesign:Card>
+
+            </StackPanel>
+
+
+
+
         </Grid>
+    
     </Grid>
 </Window>

@@ -22,7 +22,6 @@ C:\Users\Alejandro\Desktop\Prueba WPF\WpfApp1\WpfApp1\bin\Debug\MongoDB.Bson.xml
 C:\Users\Alejandro\Desktop\Prueba WPF\WpfApp1\WpfApp1\bin\Debug\MongoDB.Driver.xml
 C:\Users\Alejandro\Desktop\Prueba WPF\WpfApp1\WpfApp1\bin\Debug\MongoDB.Driver.Core.xml
 C:\Users\Alejandro\Desktop\Prueba WPF\WpfApp1\WpfApp1\bin\Debug\System.Buffers.xml
-C:\Users\Alejandro\Desktop\Prueba WPF\WpfApp1\WpfApp1\obj\Debug\WpfApp1.csprojAssemblyReference.cache
 C:\Users\Alejandro\Desktop\Prueba WPF\WpfApp1\WpfApp1\obj\Debug\AddBook.g.cs
 C:\Users\Alejandro\Desktop\Prueba WPF\WpfApp1\WpfApp1\obj\Debug\AddUser.g.cs
 C:\Users\Alejandro\Desktop\Prueba WPF\WpfApp1\WpfApp1\obj\Debug\LoggedIn.g.cs

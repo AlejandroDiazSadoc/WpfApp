@@ -12,7 +12,6 @@ namespace WpfApp1
     public class Book
     {
         [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
         public ObjectId id { get; set; }
         public string title { get; set; }
 

@@ -8,10 +8,12 @@
         mc:Ignorable="d"
         Height="220" Width="430" Visibility="Visible" ResizeMode="NoResize" WindowStyle="None" AllowsTransparency="True">
     <Grid>
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
+        
         <Border Grid.Row="0" Background="Transparent" MouseLeftButtonDown="Border_MouseLeftButtonDown">
             <Grid>
                 <materialDesign:ColorZone Mode="Accent" Background="#FF106973">
@@ -28,17 +30,21 @@
                 </materialDesign:ColorZone>
             </Grid>
         </Border>
+        
         <Grid Grid.Row="1" Background="White" >
  
             <StackPanel Orientation="Vertical" Margin="20,20,20.4,19.6" Grid.ColumnSpan="2">
+                
                 <StackPanel Orientation="Horizontal" Height="26" Margin="0,0,0,10">
                     <materialDesign:PackIcon Kind="Account" Height="26" Margin="0,0,2,0" Width="29" Foreground="{Binding ElementName=User_txt, Path=BorderBrush}" VerticalAlignment="Bottom"/>
                     <TextBox x:Name="User_txt" Width="360" Margin="0,0,0,-0.4" materialDesign:HintAssist.Hint="User" />
                 </StackPanel>
+                
                 <StackPanel Orientation="Horizontal" Height="26" Margin="0,0,0,10">
                     <materialDesign:PackIcon Kind="Key" Height="26" Margin="0,0,2,0" Width="29" Foreground="{Binding ElementName=Password_txt, Path=BorderBrush}" VerticalAlignment="Bottom"/>
                     <PasswordBox x:Name="Password_txt" Width="360"  materialDesign:HintAssist.Hint="Password" />
                 </StackPanel>
+                
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <Button Content="Sign Up" Width="100" Click="Register" Margin="10"/>
                     <Button Content="Login" Width="100" Click="Login" Margin="10"/>
@@ -57,6 +63,8 @@
                     </StackPanel>
                 </materialDesign:DialogHost.DialogContent>
             </materialDesign:DialogHost>
+            
         </Grid>
+        
     </Grid>
 </Window>

@@ -12,7 +12,6 @@ namespace WpfApp1
     public class User
     {
         [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
         public ObjectId id { get; set; }
         public string username { get; set; }
 

@@ -8,11 +8,14 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
          Height="200" Width="500" ResizeMode="NoResize" WindowStyle="None">
     <Grid>
+        
         <StackPanel Orientation="Vertical" Margin="20,20,20.4,19.6" Grid.ColumnSpan="2">
+            
             <StackPanel Orientation="Horizontal" Height="26" Margin="0,0,0,10">
                 <Label Content="Title"/>
                 <TextBox x:Name="Title_txt" Width="360" Margin="0,0,0,-0.4" materialDesign:HintAssist.Hint="Title.." />
             </StackPanel>
+            
             <StackPanel Orientation="Horizontal" Height="26" Margin="0,0,0,10">
                 <Label Content="Publisher"/>
                 <TextBox x:Name="Publisher_txt" Width="360"  materialDesign:HintAssist.Hint="Publisher.." />
@@ -27,8 +30,8 @@
             <materialDesign:Card x:Name="AddBook_Failed" Visibility="Collapsed" Padding="5" Margin="0,0,0,5" Width="250" materialDesign:ShadowAssist.ShadowDepth="Depth4">
                 <TextBlock x:Name="AddBook_Failed_Text" Foreground="Red"/>
             </materialDesign:Card>
+            
         </StackPanel>
-
 
     </Grid>
 </Window>

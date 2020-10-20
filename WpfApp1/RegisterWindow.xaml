@@ -7,19 +7,24 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d" Height="250" Width="500" ResizeMode="NoResize" WindowStyle="None">
     <Grid>
+        
         <StackPanel Orientation="Vertical" Margin="20,20,20.4,19.6" Grid.ColumnSpan="2">
+            
             <StackPanel Orientation="Horizontal" Height="26" Margin="0,0,0,10">
                 <materialDesign:PackIcon Kind="Account" Height="26" Margin="0,0,2,0" Width="29" Foreground="{Binding ElementName=User_txt, Path=BorderBrush}" VerticalAlignment="Bottom"/>
                 <TextBox x:Name="UserName_txt" Width="360" Margin="0,0,0,-0.4" materialDesign:HintAssist.Hint="User" />
             </StackPanel>
+            
             <StackPanel Orientation="Horizontal" Height="26" Margin="0,0,0,10">
                 <materialDesign:PackIcon Kind="Key" Height="26" Margin="0,0,2,0" Width="29" Foreground="{Binding ElementName=Password1_txt, Path=BorderBrush}" VerticalAlignment="Bottom"/>
                 <PasswordBox x:Name="Password1_txt" Width="360"  materialDesign:HintAssist.Hint="Password" />
             </StackPanel>
+            
             <StackPanel Orientation="Horizontal" Height="26" Margin="0,0,0,10">
                 <materialDesign:PackIcon Kind="Key" Height="26" Margin="0,0,2,0" Width="29" Foreground="{Binding ElementName=Password2_txt, Path=BorderBrush}" VerticalAlignment="Bottom"/>
                 <PasswordBox x:Name="Password2_txt" Width="360"  materialDesign:HintAssist.Hint="Repeat Password" />
             </StackPanel>
+            
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Content="Back" Width="100" Click="GoBack" Margin="10"/>
                 <Button Content="Sign Up" Width="100" Click="SignUp" Margin="10"/>
@@ -29,8 +34,8 @@
             <materialDesign:Card x:Name="SignUp_Failed" Visibility="Collapsed" Padding="5" Margin="0,0,0,5" Width="250" materialDesign:ShadowAssist.ShadowDepth="Depth4">
                 <TextBlock x:Name="SignUp_Failed_Text" Foreground="Red"/>
             </materialDesign:Card>
+            
         </StackPanel>
-
 
     </Grid>
 </Window>

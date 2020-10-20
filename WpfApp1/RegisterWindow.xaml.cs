@@ -25,11 +25,17 @@ namespace WpfApp1
             InitializeComponent();
         }
 
+        /**
+        * Close the window and reopens the logged in window.
+        */
         private void GoBack(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
 
+        /**
+         * Check if already exits an user with this username and save a new user otherwise.
+         */
         private void SignUp(object sender, RoutedEventArgs e)
         {
             try
@@ -62,6 +68,9 @@ namespace WpfApp1
 
         }
 
+        /**
+         * Shows the dialog content with the message in "message" for 1 second.
+         */
         private async void ShowErrorMessage(bool isLogged, String message)
         {
             SignUp_Failed_Text.Text = message;

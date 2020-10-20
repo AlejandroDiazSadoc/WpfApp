@@ -32,28 +32,39 @@ namespace WpfApp1
             
             
         }
-
+        /**
+         * Shutdown the application
+         */
         private void Button_Exit(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }
-        
+        /*
+         * Minimize the window
+         */
         private void Button_Minimize(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
         }
-
+        /**
+         * Allow to move the window.
+         */
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
         }
-
+        /**
+         * Create a new object of RegisterWindow and show it in order to create a new user
+         */
         private void Register(object sender, RoutedEventArgs e)
         {
             RegisterWindow register = new RegisterWindow();
             register.Show();
         }
 
+        /**
+         * Try to login the user entered
+         */
         private void Login(object sender, RoutedEventArgs e)
         {
             try
@@ -73,6 +84,9 @@ namespace WpfApp1
             }
         }
 
+        /**
+         * Show the dialog host content depending if the login was successful or not.
+         */
         private async void ShowMessage(bool isLogged,User user=null)
         {
             if (isLogged)
